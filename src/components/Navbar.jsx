@@ -1,35 +1,79 @@
+import { useEffect, useState } from "react";
+import { HelpCircle } from "lucide-react";
+import { Link } from "react-router-dom"; // ✅ import Link for navigation
+import logo from "../assets/logo/logo.png";
+
 const Navbar = () => {
-    return (
-      <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <nav className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-coral-500 to-orange-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">T</span>
+  const [scrolled, setScrolled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        scrolled ? "bg-white shadow border-b border-gray-100" : "bg-transparent"
+      }`}
+    >
+      <div className="container mx-auto px-4 py-3">
+        <nav className="flex items-center justify-between">
+          {/* Logo + Search */}
+          <div className="flex items-center gap-4">
+            <img src={logo} alt="Logo" className="h-10" />
+
+            <div className="hidden md:flex">
+              <div className="bg-gray-50 px-4 py-2 rounded-full shadow-sm flex items-center w-96">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="What would you like to learn?"
+                  className="flex-grow bg-transparent outline-none text-gray-600 placeholder-gray-400 text-sm"
+                />
+                <button className="bg-coral-500 hover:bg-coral-600 p-2 rounded-full text-white ml-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 21l-4.35-4.35M16.65 16.65a7 7 0 111.414-1.414l4.35 4.35z"
+                    />
+                  </svg>
+                </button>
               </div>
-              <span className="text-xl font-bold text-gray-800">Tutor</span>
             </div>
-  
-            <div className="hidden md:flex items-center gap-8">
-              <a href="#" className="text-gray-600 hover:text-coral-500 transition-colors">Home</a>
-              <a href="#" className="text-gray-600 hover:text-coral-500 transition-colors">Find Tutors</a>
-              <a href="#" className="text-gray-600 hover:text-coral-500 transition-colors">Become a Tutor</a>
-              <a href="#" className="text-gray-600 hover:text-coral-500 transition-colors">Login</a>
-            </div>
-  
-            <div className="flex items-center gap-4">
-              <button className="bg-coral-500 hover:bg-coral-600 text-white px-6 py-2 rounded-full font-medium transition-colors">
-                Become a Tutor
-              </button>
-              <button className="text-gray-600 hover:text-coral-500 transition-colors">
-                Login
-              </button>
-            </div>
-          </nav>
-        </div>
-      </header>
-    );
-  };
-  
-  export default Navbar;
-  
+          </div>
+
+          {/* Right: Help, Become a Tutor, Login */}
+          <div className="flex items-center gap-4">
+            <HelpCircle className="text-gray-600 hover:text-coral-500 cursor-pointer" />
+            <button className="bg-coral-500 hover:bg-coral-600 text-white px-4 py-2 rounded-full font-medium transition">
+              Become a Tutor
+            </button>
+            {/* ✅ Updated Login button as Link */}
+            <Link
+              to="/login"
+              className="text-gray-800 font-semibold hover:text-coral-500 transition"
+            >
+              Log In
+            </Link>
+          </div>
+        </nav>
+      </div>
+    </header>
+  );
+};
+
+export default Navbar;
