@@ -44,6 +44,7 @@ import LandingPage from './pages/LandingPage';
 import FavoritePage from './pages/Favorites';
 import TutorDetail from './pages/TutorDetail';
 import TutorCard from './components/TutorCard';
+import Contact from './pages/Contact';
 
 
 function AppContent() {
@@ -65,6 +66,7 @@ function AppContent() {
 
           <Route path="/tutor/:tutorId" element={<TutorDetail />} />
           <Route path="/tutors" element={<TutorCard />} />
+          <Route path="/contact" element={<Contact />} />
 
 
 

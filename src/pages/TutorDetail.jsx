@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { Star, ArrowLeft, Heart } from "lucide-react";
 import LoggedInNavbar from "../components/LoggedInNavbar";
 import TutorCard from "../components/TutorCard";
@@ -19,8 +19,8 @@ const dummyTutor = {
   reviews: [
     { name: "Dhiraj", comment: "Perfect! My daughter enjoyed his lesson.", rating: 5 },
     { name: "Dhiraj", comment: "Perfect! My daughter enjoyed his lesson.", rating: 5 },
-    { name: "Dhiraj", comment: "Perfect! My daughter enjoyed his lesson.", rating: 5 }
-  ]
+    { name: "Dhiraj", comment: "Perfect! My daughter enjoyed his lesson.", rating: 5 },
+  ],
 };
 
 const relatedTutors = [
@@ -64,10 +64,14 @@ const TutorDetail = () => {
       <LoggedInNavbar />
 
       <div className="pt-24 px-6 max-w-6xl mx-auto">
-        {/* Back and Image */}
+        {/* Back and Profile */}
         <div className="flex items-start gap-10 flex-wrap md:flex-nowrap">
           <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-md">
-            <img src={dummyTutor.image} alt={dummyTutor.name} className="w-full h-full object-cover" />
+            <img
+              src={dummyTutor.image}
+              alt={dummyTutor.name}
+              className="w-full h-full object-cover"
+            />
           </div>
 
           <div className="flex-1">
@@ -75,27 +79,47 @@ const TutorDetail = () => {
               className="mb-4 text-gray-500 flex items-center gap-2 hover:text-black"
               onClick={() => navigate(-1)}
             >
-              <ArrowLeft className="w-4 h-4" /> Back
+              <ArrowLeft className="w-4 h-4" />
+              Back
             </button>
 
             <div className="flex items-center justify-between">
               <h1 className="text-3xl font-bold text-coral-500">{dummyTutor.name}</h1>
               <Heart className="w-6 h-6 text-gray-500 cursor-pointer" />
             </div>
+
             <p className="text-sm italic text-gray-500">{dummyTutor.tagline}</p>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6 text-sm text-gray-700">
-              <p><strong>Gender:</strong> {dummyTutor.gender}</p>
-              <p><strong>Location:</strong> {dummyTutor.location}</p>
-              <p><strong>Subjects:</strong> {dummyTutor.subject}</p>
-              <p><strong>Teaching Mode:</strong> {dummyTutor.mode}</p>
-              <p><strong>Hourly Rate:</strong> {dummyTutor.hourlyRate}</p>
-              <p><strong>Monthly Rate:</strong> {dummyTutor.monthlyRate}</p>
+              <p>
+                <strong>Gender:</strong> {dummyTutor.gender}
+              </p>
+              <p>
+                <strong>Location:</strong> {dummyTutor.location}
+              </p>
+              <p>
+                <strong>Subjects:</strong> {dummyTutor.subject}
+              </p>
+              <p>
+                <strong>Teaching Mode:</strong> {dummyTutor.mode}
+              </p>
+              <p>
+                <strong>Hourly Rate:</strong> {dummyTutor.hourlyRate}
+              </p>
+              <p>
+                <strong>Monthly Rate:</strong> {dummyTutor.monthlyRate}
+              </p>
             </div>
 
             <div className="mt-6 flex gap-4">
-              <button className="bg-white border border-red-500 text-red-500 px-4 py-2 rounded-full font-semibold hover:bg-red-100">Contact me</button>
-              <button className="bg-coral-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-coral-600">Book me</button>
+              <Link to="/contact">
+                <button className="bg-white border border-red-500 text-red-500 px-4 py-2 rounded-full font-semibold hover:bg-red-100">
+                  Contact me
+                </button>
+              </Link>
+              <button className="bg-coral-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-coral-600">
+                Book me
+              </button>
             </div>
           </div>
         </div>
@@ -117,7 +141,10 @@ const TutorDetail = () => {
           <h3 className="font-bold text-gray-800 mb-4">Reviews</h3>
           <div className="space-y-4">
             {dummyTutor.reviews.map((review, index) => (
-              <div key={index} className="bg-red-50 p-4 rounded-xl flex justify-between items-center shadow-sm">
+              <div
+                key={index}
+                className="bg-red-50 p-4 rounded-xl flex justify-between items-center shadow-sm"
+              >
                 <div>
                   <p className="text-sm font-semibold">{review.name}</p>
                   <p className="text-sm text-gray-600">{review.comment}</p>
@@ -135,14 +162,14 @@ const TutorDetail = () => {
         <div className="mt-14">
           <h3 className="font-bold text-gray-800 mb-4">Other tutors in Mathematics</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {relatedTutors.map((tutor, idx) => (
-              <TutorCard key={idx} id={tutor.id} {...tutor} />
+            {relatedTutors.map((tutor) => (
+              <TutorCard key={tutor.id} id={tutor.id} {...tutor} />
             ))}
           </div>
         </div>
       </div>
 
-      {/* Optional footer */}
+      {/* Footer */}
       <footer className="mt-20 bg-gray-900 text-white text-sm py-10 px-6 text-center">
         © 2025 Tutorfinder. The best way to learn.
       </footer>
