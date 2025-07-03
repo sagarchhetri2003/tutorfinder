@@ -49,6 +49,7 @@ import Booking from './pages/Booking';
 import HelpCenter from './pages/Help';
 import SearchResults from './pages/SearchResults';
 import UserProfile from './pages/UserProfile';
+import TutorLoginPage from './pages/TutorLoginPage';
 
 function AppContent() {
   const location = useLocation();
@@ -73,6 +74,7 @@ function AppContent() {
           <Route path="/help" element={<HelpCenter />} />
           <Route path="/search" element={<SearchResults />} />
           <Route path="/userprofile" element={<UserProfile />} />
+          <Route path="/tutorlogin" element={<TutorLoginPage />} />
 
 
 

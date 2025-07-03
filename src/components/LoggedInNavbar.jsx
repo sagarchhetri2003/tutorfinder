@@ -186,26 +186,27 @@
 //   );
 // };
 
-// export default LoggedInNavbar;
 
+// export default LoggedInNavbar;
 
 import { useState } from "react";
 import { User, Heart, HelpCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo/logo.png";
 
-const LoggedInNavbar = ({ activePage }) => {
+const LoggedInNavbar = ({ activePage, hideTutorButton }) => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("user"); // or your auth token
+    localStorage.removeItem("user");
     navigate("/");
   };
 
   return (
     <header className="fixed top-0 left-0 w-full bg-white shadow-sm py-4 z-50">
       <div className="container mx-auto flex items-center justify-between px-4">
+        {/* Logo Section */}
         <div className="flex items-center gap-4">
           <img
             src={logo}
@@ -213,10 +214,21 @@ const LoggedInNavbar = ({ activePage }) => {
             className="h-10 cursor-pointer"
             onClick={() => navigate("/")}
           />
-          {/* ... Search Input if needed */}
         </div>
 
+        {/* Right Icons & Buttons */}
         <div className="flex items-center space-x-6 relative">
+          {/* Become a Tutor Button */}
+          {!hideTutorButton && (
+            <button
+              onClick={() => navigate("/tutorlogin")}
+              className="bg-coral-500 hover:bg-coral-600 text-white px-4 py-2 rounded-full text-sm font-medium"
+            >
+              Become a Tutor
+            </button>
+          )}
+
+          {/* Icons */}
           <Heart onClick={() => navigate("/favorites")} className="w-6 h-6 cursor-pointer" />
           <HelpCircle onClick={() => navigate("/help")} className="w-6 h-6 cursor-pointer" />
 
