@@ -50,6 +50,7 @@ import HelpCenter from './pages/Help';
 import SearchResults from './pages/SearchResults';
 import UserProfile from './pages/UserProfile';
 import TutorLoginPage from './pages/TutorLoginPage';
+import TutorSignupForm from './pages/TutorSignupform';
 
 function AppContent() {
   const location = useLocation();
@@ -75,6 +76,7 @@ function AppContent() {
           <Route path="/search" element={<SearchResults />} />
           <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/tutorlogin" element={<TutorLoginPage />} />
+          <Route path="/tutorsignup" element={<TutorSignupForm />} />
 
 
 

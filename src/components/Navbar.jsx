@@ -1,11 +1,14 @@
+
+
 // import { useEffect, useState } from "react";
 // import { HelpCircle } from "lucide-react";
-// import { Link } from "react-router-dom"; // ✅ import Link for navigation
+// import { Link, useLocation } from "react-router-dom";
 // import logo from "../assets/logo/logo.png";
 
 // const Navbar = () => {
 //   const [scrolled, setScrolled] = useState(false);
 //   const [searchQuery, setSearchQuery] = useState("");
+//   const location = useLocation();
 
 //   useEffect(() => {
 //     const handleScroll = () => {
@@ -14,6 +17,10 @@
 //     window.addEventListener("scroll", handleScroll);
 //     return () => window.removeEventListener("scroll", handleScroll);
 //   }, []);
+
+//   // ✅ Only hide JSX after hooks are declared
+//   const hideOnRoutes = ["/tutorlogin"];
+//   if (hideOnRoutes.includes(location.pathname)) return null;
 
 //   return (
 //     <header
@@ -62,7 +69,6 @@
 //             <button className="bg-coral-500 hover:bg-coral-600 text-white px-4 py-2 rounded-full font-medium transition">
 //               Become a Tutor
 //             </button>
-//             {/* ✅ Updated Login button as Link */}
 //             <Link
 //               to="/login"
 //               className="text-gray-800 font-semibold hover:text-coral-500 transition"
@@ -77,7 +83,6 @@
 // };
 
 // export default Navbar;
-
 import { useEffect, useState } from "react";
 import { HelpCircle } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
@@ -96,9 +101,12 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ Only hide JSX after hooks are declared
-  const hideOnRoutes = ["/tutorlogin"];
-  if (hideOnRoutes.includes(location.pathname)) return null;
+  // ✅ Hide navbar if the route matches any keyword
+  const hideOnRoutes = ["/tutorlogin", "/tutorsignup"];
+  const shouldHideNavbar = hideOnRoutes.some((path) =>
+    location.pathname.toLowerCase().includes(path)
+  );
+  if (shouldHideNavbar) return null;
 
   return (
     <header
