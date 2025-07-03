@@ -117,9 +117,11 @@ const TutorDetail = () => {
                   Contact me
                 </button>
               </Link>
+              <Link to="/booking">
               <button className="bg-coral-500 text-white px-4 py-2 rounded-full font-semibold hover:bg-coral-600">
                 Book me
               </button>
+                </Link>
             </div>
           </div>
         </div>
