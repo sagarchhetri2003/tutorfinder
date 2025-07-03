@@ -1,10 +1,8 @@
-
-
-
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { Heart, Star } from "lucide-react";
 
-const TutorCard = ({ name, subject, description, rating, price, image, verified = false }) => {
+const TutorCard = ({ id, name, subject, description, rating, price, image, verified = false }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   return (
@@ -44,9 +42,11 @@ const TutorCard = ({ name, subject, description, rating, price, image, verified 
 
         <div className="flex items-center justify-between">
           <span className="text-lg font-semibold text-gray-800">{price}</span>
-          <button className="bg-coral-500 hover:bg-coral-600 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors">
-            Contact
-          </button>
+          <Link to={`/tutor/${id}`}>
+            <button className="bg-coral-500 hover:bg-coral-600 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors">
+              View More
+            </button>
+          </Link>
         </div>
       </div>
     </div>

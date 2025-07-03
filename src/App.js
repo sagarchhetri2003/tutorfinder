@@ -41,6 +41,10 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPassword from './pages/ForgotPassword';
 import LandingPage from './pages/LandingPage';
+import FavoritePage from './pages/Favorites';
+import TutorDetail from './pages/TutorDetail';
+import TutorCard from './components/TutorCard';
+
 
 function AppContent() {
   const location = useLocation();
@@ -57,6 +61,15 @@ function AppContent() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/landing-page" element={<LandingPage />} />
+          <Route path="/favorites" element={<FavoritePage />} />
+
+          <Route path="/tutor/:tutorId" element={<TutorDetail />} />
+          <Route path="/tutors" element={<TutorCard />} />
+
+
+
+          {/* Add more routes as needed */}
+
         </Routes>
       </main>
       <Footer />

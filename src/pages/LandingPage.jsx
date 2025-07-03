@@ -1,16 +1,3 @@
-// import LoggedInNavbar from "../components/LoggedInNavbar";
-// import Home from "./Home";
-
-// const LandingPage = () => {
-//   return (
-//     <>
-//       <LoggedInNavbar />
-//       <Home showNavbar={false} /> {/* 👈 Disable original navbar */}
-//     </>
-//   );
-// };
-
-// export default LandingPage;
 
 
 import LoggedInNavbar from "../components/LoggedInNavbar";

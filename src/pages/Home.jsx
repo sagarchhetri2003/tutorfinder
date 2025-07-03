@@ -29,7 +29,7 @@ const Home = () => {
   ];
 
   const tutors = [
-    { name: "Chrys", subject: "Soutien scolaire", description: "Personnalise ses cours selon vos besoins avec une approche bienveillante et motivante.", rating: 4.9, price: "67€/h", image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=800&q=80", verified: true },
+    { name: "Chrys", subject: "Soutien scolaire", description: "Personnalise ses cours selon vos besoins avec une approche bienveillante et motivante.", rating: 4.9, price: "67€/h", image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=800&q=80"},
     { name: "Adrien", subject: "Guitare", description: "Cours de guitare pour débutants et avancés avec une méthode progressive et ludique.", rating: 4.8, price: "45€/h", image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80" },
     { name: "Florent", subject: "Maths", description: "Enseignant de mathématiques passionné, aide étudiants de tous niveaux.", rating: 4.9, price: "55€/h", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" },
     { name: "Fleur", subject: "Coaching Sportif", description: "Entraîneuse personnelle spécialisée dans la remise en forme et le bien-être.", rating: 4.7, price: "50€/h", image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80" },
