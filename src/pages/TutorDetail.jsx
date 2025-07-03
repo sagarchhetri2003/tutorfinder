@@ -103,11 +103,9 @@ const TutorDetail = () => {
                 <strong>Teaching Mode:</strong> {dummyTutor.mode}
               </p>
               <p>
-                <strong>Hourly Rate:</strong> {dummyTutor.hourlyRate}
+                <strong>Weekly Rate:</strong> {dummyTutor.weeklyRate}
               </p>
-              <p>
-                <strong>Monthly Rate:</strong> {dummyTutor.monthlyRate}
-              </p>
+            
             </div>
 
             <div className="mt-6 flex gap-4">

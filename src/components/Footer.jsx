@@ -14,10 +14,10 @@ const Footer = () => {
               <li><a href="#" className="hover:text-white">Who are we?</a></li>
               <li><a href="#" className="hover:text-white">Terms & Conditions</a></li>
               <li><a href="#" className="hover:text-white">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-white">Superprof Global</a></li>
+              <li><a href="#" className="hover:text-white">Tutor Finder Global</a></li>
               <li><a href="#" className="hover:text-white">Online Lessons</a></li>
               <li><a href="#" className="hover:text-white">States</a></li>
-              <li><a href="#" className="hover:text-white">Superprof Careers</a></li>
+              <li><a href="#" className="hover:text-white">T utor FinderCareers</a></li>
             </ul>
           </div>
 
@@ -40,7 +40,7 @@ const Footer = () => {
           <div>
             <h3 className="font-bold mb-4">Join the adventure</h3>
             <ul className="space-y-2 text-gray-300">
-              <li><a href="#" className="hover:text-white">The Superprof Blog</a></li>
+              <li><a href="#" className="hover:text-white">The Tutor Finder Blog</a></li>
               <li><a href="#" className="hover:text-white">Teaching resources</a></li>
             </ul>
           </div>

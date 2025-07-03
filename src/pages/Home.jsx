@@ -76,7 +76,18 @@ const Home = () => {
     }
   ];
 
-  const visibleTutors = tutors.slice(visibleStart, visibleStart + 6);
+  // const visibleTutors = tutors.slice(visibleStart, visibleStart + 6);
+
+  // Filter tutors based on search query but kam garerko chaina yet
+  const filteredTutors = tutors.filter(
+    (tutor) =>
+      tutor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      tutor.subject.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      tutor.location.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  
+  const visibleTutors = filteredTutors.slice(visibleStart, visibleStart + 6);
+  
 
   const handlePrev = () => {
     setVisibleStart((prev) => Math.max(prev - 6, 0));
