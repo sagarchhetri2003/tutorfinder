@@ -46,7 +46,8 @@ import TutorDetail from './pages/TutorDetail';
 import TutorCard from './components/TutorCard';
 import Contact from './pages/Contact';
 import Booking from './pages/Booking';
-
+import HelpCenter from './pages/Help';
+import SearchResults from './pages/SearchResults';
 
 function AppContent() {
   const location = useLocation();
@@ -68,6 +69,8 @@ function AppContent() {
           <Route path="/tutors" element={<TutorCard />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/help" element={<HelpCenter />} />
+          <Route path="/search" element={<SearchResults />} />
 
 
 

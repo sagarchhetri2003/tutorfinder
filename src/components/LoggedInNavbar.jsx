@@ -1,15 +1,32 @@
 
 
-// import { User, Heart, HelpCircle } from "lucide-react";
-// import logo from "../assets/logo/logo.png";
 
-// const LoggedInNavbar = () => {
+// import { User, Heart, HelpCircle } from "lucide-react";
+// import { useNavigate } from "react-router-dom";
+// import logo from "../assets/logo/logo.png";
+// import React, { useState } from "react";
+
+
+
+// const LoggedInNavbar = ({ activePage }) => {
+//   const navigate = useNavigate();
+
+//   const iconClasses = (page) =>
+//     `w-6 h-6 cursor-pointer transition-transform duration-200 hover:scale-110 ${
+//       activePage === page ? "text-coral-500" : "text-gray-700 hover:text-coral-500"
+//     }`;
+
 //   return (
 //     <header className="fixed top-0 left-0 w-full bg-white shadow-sm py-4 z-50">
 //       <div className="container mx-auto flex items-center justify-between px-4">
 //         {/* Left: Logo + Search */}
 //         <div className="flex items-center gap-4">
-//           <img src={logo} alt="TutorFinder Logo" className="h-10" />
+//           <img
+//             src={logo}
+//             alt="TutorFinder Logo"
+//             className="h-10 cursor-pointer"
+//             onClick={() => navigate("/")}
+//           />
 
 //           <div className="hidden md:flex">
 //             <div className="bg-gray-50 px-4 py-2 rounded-full shadow-sm flex items-center w-96">
@@ -38,14 +55,27 @@
 //           </div>
 //         </div>
 
-//         {/* Right: Become a Tutor, Heart, Help, Profile */}
+//         {/* Right: Become a Tutor, Icons */}
 //         <div className="flex items-center space-x-6">
-//           <button className="bg-red-500 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-red-600 transition">
+//           <button
+//             className="bg-red-500 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-red-600 transition"
+//             onClick={() => navigate("/become-a-tutor")}
+//           >
 //             Become a Tutor
 //           </button>
-//           <Heart className="w-5 h-5 text-gray-700 cursor-pointer" />
-//           <HelpCircle className="w-5 h-5 text-gray-700 cursor-pointer" />
-//           <User className="w-6 h-6 text-gray-700 cursor-pointer" />
+
+//           <Heart
+//             className={iconClasses("favorites")}
+//             onClick={() => navigate("/favorites")}
+//           />
+//           <HelpCircle
+//             className={iconClasses("help")}
+//             onClick={() => navigate("/help")}
+//           />
+//           <User
+//             className={iconClasses("profile")}
+//             onClick={() => navigate("/profile")}
+//           />
 //         </div>
 //       </div>
 //     </header>
@@ -58,9 +88,29 @@
 import { User, Heart, HelpCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo/logo.png";
+import React, { useState } from "react";
 
 const LoggedInNavbar = ({ activePage }) => {
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const iconClasses = (page) =>
+    `w-6 h-6 cursor-pointer transition-transform duration-200 hover:scale-110 ${
+      activePage === page ? "text-coral-500" : "text-gray-700 hover:text-coral-500"
+    }`;
+
+  const handleSearch = () => {
+    if (searchTerm.trim()) {
+      navigate(`/search?query=${encodeURIComponent(searchTerm.trim())}`);
+      setSearchTerm(""); // clear input after search
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
     <header className="fixed top-0 left-0 w-full bg-white shadow-sm py-4 z-50">
@@ -79,9 +129,15 @@ const LoggedInNavbar = ({ activePage }) => {
               <input
                 type="text"
                 placeholder="What would you like to learn?"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={handleKeyDown}
                 className="flex-grow bg-transparent outline-none text-gray-600 placeholder-gray-400 text-sm"
               />
-              <button className="bg-red-400 hover:bg-red-500 p-2 rounded-full text-white ml-2">
+              <button
+                onClick={handleSearch}
+                className="bg-red-400 hover:bg-red-500 p-2 rounded-full text-white ml-2"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"
@@ -101,7 +157,7 @@ const LoggedInNavbar = ({ activePage }) => {
           </div>
         </div>
 
-        {/* Right: Become a Tutor, Heart, Help, Profile */}
+        {/* Right: Become a Tutor, Icons */}
         <div className="flex items-center space-x-6">
           <button
             className="bg-red-500 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-red-600 transition"
@@ -111,29 +167,15 @@ const LoggedInNavbar = ({ activePage }) => {
           </button>
 
           <Heart
-            className={`w-5 h-5 cursor-pointer transition ${
-              activePage === "favorites"
-                ? "text-coral-500"
-                : "text-gray-700 hover:text-coral-500"
-            }`}
+            className={iconClasses("favorites")}
             onClick={() => navigate("/favorites")}
           />
-
           <HelpCircle
-            className={`w-5 h-5 cursor-pointer transition ${
-              activePage === "help"
-                ? "text-coral-500"
-                : "text-gray-700 hover:text-coral-500"
-            }`}
+            className={iconClasses("help")}
             onClick={() => navigate("/help")}
           />
-
           <User
-            className={`w-6 h-6 cursor-pointer transition ${
-              activePage === "profile"
-                ? "text-coral-500"
-                : "text-gray-700 hover:text-coral-500"
-            }`}
+            className={iconClasses("profile")}
             onClick={() => navigate("/profile")}
           />
         </div>
