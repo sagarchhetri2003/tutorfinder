@@ -447,7 +447,7 @@ const TutorSignupForm = () => {
     if (validate()) {
       console.log("Form Submitted:", formData);
       toast.success("Tutor profile created successfully!");
-      setTimeout(() => navigate("/"), 2000); // Navigate after toast
+      setTimeout(() => navigate("/tutorlandingpage"), 2000); // Navigate after toast
     } else {
       toast.error("Please fill in all required fields.");
     }

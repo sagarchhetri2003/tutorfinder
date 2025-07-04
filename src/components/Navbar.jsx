@@ -83,6 +83,8 @@
 // };
 
 // export default Navbar;
+
+
 import { useEffect, useState } from "react";
 import { HelpCircle } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
@@ -102,7 +104,7 @@ const Navbar = () => {
   }, []);
 
   // ✅ Hide navbar if the route matches any keyword
-  const hideOnRoutes = ["/tutorlogin", "/tutorsignup"];
+  const hideOnRoutes = ["/tutorlogin", "/tutorsignup", "/tutorlandingpage"];
   const shouldHideNavbar = hideOnRoutes.some((path) =>
     location.pathname.toLowerCase().includes(path)
   );
