@@ -223,12 +223,16 @@
 
 // export default Signup;
 
+
+
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUserApi } from "../apis/api";
 import logo from "../assets/logo/logo.png";
 import Home from "./Home";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -279,19 +283,21 @@ const Signup = () => {
       console.log("Registration response:", res);
 
       if (res.data.success) {
-        alert("Registration successful!");
-        navigate("/login");
+        toast.success(" Registration successful!");
+        setTimeout(() => navigate("/login"), 2000);
       } else {
-        alert("Registration failed");
+        toast.error(" Registration failed");
       }
     } catch (error) {
       console.error("Error registering:", error);
-      alert("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.");
     }
   };
 
   return (
     <div className="relative min-h-screen overflow-hidden">
+      <ToastContainer position="top-right" autoClose={2000} />
+
       {/* Home as background */}
       <div className="absolute inset-0 z-0">
         <Home />
@@ -367,7 +373,7 @@ const Signup = () => {
               <div className="flex items-center gap-2 mt-1">
                 <select
                   className="px-3 py-2 rounded-full border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-coral-500 text-sm"
-                  value={formData.countryCode || "+977"}
+                  value={formData.countryCode}
                   onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
                 >
                   <option value="+977">🇳🇵 +977</option>
@@ -399,7 +405,7 @@ const Signup = () => {
               {errors.location && <p className="text-xs text-red-500 ml-2 mt-1">{errors.location}</p>}
             </div>
 
-            {/* Profile Picture (optional) */}
+            {/* Profile Picture */}
             <div>
               <label className="text-xs font-medium text-gray-700 ml-2">Profile Picture (optional)</label>
               <input
