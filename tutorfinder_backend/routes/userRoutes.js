@@ -26,6 +26,9 @@ const upload = require("../middleware/upload");
 const authGuard = require("../middleware/authGuard");
 const { forgotPassword, resetPassword } = require("../controllers/userController");
 
+const { getTutorById } = require("../controllers/userController");
+
+
 
 
 router.post("/register", upload.single("image"), registerUser);
@@ -35,6 +38,7 @@ router.put("/update-password", authGuard, updateUserPassword);
 
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password/:token", resetPassword);
+router.get("/tutor/:id", getTutorById);
 router.post(
   "/signup-as-tutor",
   authGuard,
@@ -42,6 +46,7 @@ router.post(
     { name: "image", maxCount: 1 },
     { name: "certificate", maxCount: 1 },
   ]),
+   
   signUpAsTutor
 );
 router.get("/details/:userId", authGuard, getUserDetails);

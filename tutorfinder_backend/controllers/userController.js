@@ -250,6 +250,23 @@ exports.updateUserPassword = async (req, res) => {
     });
   }
 };
+exports.getTutorById = async (req, res) => {
+  try {
+    const tutor = await Users.findById(req.params.id).select("image number location email role isApproved name");
+
+    if (!tutor) {
+      return res.status(404).json({ success: false, message: "Tutor not found" });
+    }
+
+    res.status(200).json({ success: true, tutor });
+  } catch (err) {
+    console.error("Error fetching tutor:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+
+
 
 exports.signUpAsTutor = async (req, res) => {
   try {

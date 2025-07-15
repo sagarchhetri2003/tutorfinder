@@ -32,6 +32,7 @@ export const searchTutorsApi = (params) => api.get('/api/user/search-tutors', { 
 export const allTutorsApi = () => api.get("/api/user/all-tutors");
 export const getTutorDetailsApi = (tutorId) => api.get(`/api/user/tutor-details/${tutorId}`, config);
 export const createContactApi = (data) => api.post("/api/user/contact", data, config);
+export const getTutorByIdApi = (id) => api.get(`/api/user/tutor/${id}`, config);
 export const myContactsApi = () => api.get("/api/user/my-contacts", config);
 export const myBookingsApi = () => api.get("/api/user/my-bookings", config);
 export const addReviewsApi = (data) => api.post("/api/user/add-review", data, config);
