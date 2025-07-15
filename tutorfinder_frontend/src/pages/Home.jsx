@@ -9,7 +9,7 @@ import { allTutorsApi, allFavouritesApi, toggleFavouriteApi } from "../apis/api.
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState("All");
+  // const [activeCategory, setActiveCategory] = useState("All");
   const scrollRef = useRef(null);
   const [tutors, setTutors] = useState([]);
   const [favourites, setFavourites] = useState(new Set());
@@ -73,19 +73,43 @@ const Home = () => {
     getFavourites();
   }, []);
 
-  const categories = [
-    { icon: "📊", label: "Maths" },
-    { icon: "🔬", label: "Physics" },
-    { icon: "⚗️", label: "Chemistry" },
-    { icon: "🎨", label: "Art & Design" },
-    { icon: "🏺", label: "History" },
-    { icon: "🎭", label: "Language" },
-    { icon: "🎵", label: "Music" },
-    { icon: "💻", label: "Computer" },
-    { icon: "🏃", label: "Sports" },
-    { icon: "📚", label: "Literature" },
-    { icon: "🌍", label: "Geography" },
-  ];
+
+const [currentPage, setCurrentPage] = useState(0);
+const tutorsPerPage = 9;
+
+const paginatedTutors = tutors.slice(
+  currentPage * tutorsPerPage,
+  (currentPage + 1) * tutorsPerPage
+);
+
+const totalPages = Math.ceil(tutors.length / tutorsPerPage);
+
+const handleNext = () => {
+  if (currentPage < totalPages - 1) {
+    setCurrentPage((prev) => prev + 1);
+  }
+};
+
+const handlePrev = () => {
+  if (currentPage > 0) {
+    setCurrentPage((prev) => prev - 1);
+  }
+};
+
+
+  // const categories = [
+  //   { icon: "📊", label: "Maths" },
+  //   { icon: "🔬", label: "Physics" },
+  //   { icon: "⚗️", label: "Chemistry" },
+  //   { icon: "🎨", label: "Art & Design" },
+  //   { icon: "🏺", label: "History" },
+  //   { icon: "🎭", label: "Language" },
+  //   { icon: "🎵", label: "Music" },
+  //   { icon: "💻", label: "Computer" },
+  //   { icon: "🏃", label: "Sports" },
+  //   { icon: "📚", label: "Literature" },
+  //   { icon: "🌍", label: "Geography" },
+  // ];
 
   const testimonials = [
     {
@@ -148,11 +172,11 @@ const Home = () => {
         </div>
       </section>
 
-      <CategorySection
+      {/* <CategorySection
         categories={categories}
         activeCategory={activeCategory}
         setActiveCategory={setActiveCategory}
-      />
+      /> */}
 
       {/* Featured Tutors */}
       <section className="container mx-auto px-4 py-20">
@@ -162,7 +186,7 @@ const Home = () => {
             <span className="text-sm font-semibold text-amber-700">Top Rated</span>
           </div>
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Mostly Reviewed Tutors
+            Tutors
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
             Connect with our highest-rated tutors who have helped thousands of students achieve their goals
@@ -174,7 +198,7 @@ const Home = () => {
             <span className="ml-2 text-sm text-gray-600 font-medium">Based on 10,000+ reviews</span>
           </div>
         </div>
-
+{/* 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {tutors.map((tutor) => (
             <div key={tutor._id} className="transform hover:scale-105 transition-all duration-300">
@@ -185,7 +209,40 @@ const Home = () => {
               />
             </div>
           ))}
-        </div>
+        </div> */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+  {paginatedTutors.map((tutor) => (
+    <div key={tutor._id} className="transform hover:scale-105 transition-all duration-300">
+      <TutorCard
+        {...tutor}
+        isLiked={favourites.has(tutor._id)}
+        onToggle={() => handleToggleFavourite(tutor._id)}
+      />
+    </div>
+  ))}
+</div>
+{totalPages > 1 && (
+  <div className="flex justify-center items-center gap-4 mt-4">
+    <button
+      onClick={handlePrev}
+      disabled={currentPage === 0}
+      className="p-2 bg-white border rounded-full shadow hover:bg-gray-100 disabled:opacity-50"
+    >
+      <ArrowLeft className="w-5 h-5" />
+    </button>
+    <span className="text-sm text-gray-600 font-medium">
+      Page {currentPage + 1} of {totalPages}
+    </span>
+    <button
+      onClick={handleNext}
+      disabled={currentPage === totalPages - 1}
+      className="p-2 bg-white border rounded-full shadow hover:bg-gray-100 disabled:opacity-50"
+    >
+      <ArrowRight className="w-5 h-5" />
+    </button>
+  </div>
+)}
+
 
         {tutors.length > 0 && (
           <div className="text-center">
