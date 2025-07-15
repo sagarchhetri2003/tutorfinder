@@ -4,10 +4,12 @@ const jwt = require("jsonwebtoken");
 const Contact = require("../model/contactModel");
 const Booking = require("../model/bookingModel");
 const Review = require("../model/reviewModel");
+const transporter = require("../middleware/mailConfig.js");
 
 exports.registerUser = async (req, res) => {
   const { name, email, number, location, password, role } = req.body;
   const image = req.file ? req.file.path : null;
+
   try {
     if (!name || !email || !number || !location || !password) {
       return res.status(400).json({ message: "All fields are required" });
@@ -27,9 +29,32 @@ exports.registerUser = async (req, res) => {
     });
 
     await user.save();
-    res
-      .status(200)
-      .json({ success: true, message: "User registered successfully", user });
+
+    //  Send welcome email
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: "🎉 Welcome to TutorFinder!",
+      html: `<h3>Hello ${name},</h3>
+             <p>Your TutorFinder account has been created successfully.</p>
+             <p>Start finding or becoming a tutor today!</p>
+             <br><small>— The TutorFinder Team</small>`
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log(" Welcome email sent to", email);
+    } catch (emailError) {
+      console.error(" Failed to send welcome email:", emailError);
+  
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "User registered successfully",
+      user,
+    });
+
   } catch (error) {
     console.error("Error registering user:", error);
     res.status(500).json({ success: false, message: "Server error" });
