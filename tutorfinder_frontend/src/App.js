@@ -31,6 +31,8 @@
 
 // export default App;
 
+
+
 import {
   Route,
   BrowserRouter as Router,
@@ -64,6 +66,7 @@ import { AdminPanel } from "./pages/admin/AdminPanel";
 import MyContactList from "./pages/MyContactList";
 import MyBookingList from "./pages/MyBookingList";
 import PaymentPage from "./pages/PaymentPage";
+import ResetPassword from "./pages/ResetPassword";
 
 function AppContent() {
   const location = useLocation();
@@ -80,6 +83,8 @@ function AppContent() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+
           <Route element={<UserRoutes />}>
             <Route path="/landing-page" element={<LandingPage />} />
             <Route path="/favorites" element={<FavoritePage />} />
@@ -94,6 +99,8 @@ function AppContent() {
             <Route path="/search" element={<SearchPage />} />
             <Route path="/my-contact-list" element={<MyContactList />} />
             <Route path="/my-booking-list" element={<MyBookingList />} />
+
+            
           </Route>
           <Route path="/tutorlandingpage" element={<TutorLandingPage />} />
           <Route element={<AdminRoutes />}>

@@ -24,11 +24,17 @@ const upload = require("../middleware/upload");
 
 // import the authentication middleware
 const authGuard = require("../middleware/authGuard");
+const { forgotPassword, resetPassword } = require("../controllers/userController");
+
+
 
 router.post("/register", upload.single("image"), registerUser);
 router.post("/login", loginUser);
 router.put("/update", authGuard, upload.single("image"), updateUser);
 router.put("/update-password", authGuard, updateUserPassword);
+
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password/:token", resetPassword);
 router.post(
   "/signup-as-tutor",
   authGuard,
