@@ -52,7 +52,6 @@ import HelpCenter from "./pages/Help";
 import Home from "./pages/Home";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
-import SearchResults from "./pages/SearchResults";
 import Signup from "./pages/Signup";
 import TutorDetail from "./pages/TutorDetail";
 import TutorLandingPage from "./pages/TutorLandingPage";
@@ -67,6 +66,9 @@ import MyContactList from "./pages/MyContactList";
 import MyBookingList from "./pages/MyBookingList";
 import PaymentPage from "./pages/PaymentPage";
 import ResetPassword from "./pages/ResetPassword";
+import MyReviews from "./pages/MyReviews";
+
+
 
 function AppContent() {
   const location = useLocation();
@@ -99,6 +101,7 @@ function AppContent() {
             <Route path="/search" element={<SearchPage />} />
             <Route path="/my-contact-list" element={<MyContactList />} />
             <Route path="/my-booking-list" element={<MyBookingList />} />
+            <Route path="/my-reviews" element={<MyReviews />} />
 
             
           </Route>

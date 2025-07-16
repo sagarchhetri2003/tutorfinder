@@ -537,23 +537,39 @@ exports.myBookings = async (req, res) => {
     });
   }
 };
+// Get reviews written about the currently logged-in tutor
+exports.getMyReviews = async (req, res) => {
+  try {
+    const reviews = await Review.find({ tutor: req.user.id }) // FIXED: ._id ➝ .id
+      .sort({ createdAt: -1 })
+      .populate("user", "name");
 
+    res.status(200).json({ success: true, reviews });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Failed to fetch reviews" });
+  }
+};
+
+// Add a review to a tutor (by user)
 exports.addReviews = async (req, res) => {
-  console.log(req.body);
   const { tutorId, review } = req.body;
+
   try {
     const addedReview = new Review({
       user: req.user.id,
       tutor: tutorId,
       review: review,
     });
+
     await addedReview.save();
+
     res.status(200).json({
       success: true,
       message: "Review added successfully",
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Server Error",
@@ -561,19 +577,22 @@ exports.addReviews = async (req, res) => {
   }
 };
 
+// Get reviews for a specific tutor by ID (public or user-side)
 exports.getReviewFromId = async (req, res) => {
   const id = req.params.id;
-  console.log(id);
 
   try {
-    const reviews = await Review.find({ tutor: id }).sort({ createdAt: -1 }).populate("user", "name");
+    const reviews = await Review.find({ tutor: id })
+      .sort({ createdAt: -1 })
+      .populate("user", "name");
+
     res.status(200).json({
       success: true,
       message: "Reviews",
       reviews,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({
       success: false,
       message: "Server Error",
@@ -581,3 +600,24 @@ exports.getReviewFromId = async (req, res) => {
   }
 };
 
+// Tutor deletes review written about them
+exports.deleteReview = async (req, res) => {
+  try {
+    const review = await Review.findById(req.params.id);
+    if (!review) {
+      return res.status(404).json({ success: false, message: "Review not found" });
+    }
+
+    // Ensure only the tutor (being reviewed) can delete it
+    if (review.tutor.toString() !== req.user.id) {  // FIXED
+      return res.status(403).json({ success: false, message: "Unauthorized" });
+    }
+
+    await Review.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({ success: true, message: "Review deleted" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Error deleting review" });
+  }
+};

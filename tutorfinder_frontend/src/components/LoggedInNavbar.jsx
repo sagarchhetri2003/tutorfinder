@@ -424,6 +424,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo/logo.png";
 import { useAuth } from "../context/AuthContext";
+import { MessageCircle } from "lucide-react"; 
 
 const LoggedInNavbar = ({ activePage, hideTutorButton }) => {
   const { user } = useAuth();
@@ -501,17 +502,22 @@ const LoggedInNavbar = ({ activePage, hideTutorButton }) => {
           <div className="flex items-center space-x-6">
             {/* Tutor Links */}
             {user?.role === "tutor" && (
-              <div className="hidden md:flex items-center space-x-6">
-                <Link to="/my-contact-list" className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 group">
-                  <List className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
-                  <span className="font-medium">Contact List</span>
-                </Link>
-                <Link to="/my-booking-list" className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 group">
-                  <Calendar className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
-                  <span className="font-medium">Booking List</span>
-                </Link>
-              </div>
-            )}
+  <div className="hidden md:flex items-center space-x-6">
+    <Link to="/my-contact-list" className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 group">
+      <List className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+      <span className="font-medium">Contact List</span>
+    </Link>
+    <Link to="/my-booking-list" className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 group">
+      <Calendar className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+      <span className="font-medium">Booking List</span>
+    </Link>
+    <Link to="/my-reviews" className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors duration-300 group">
+  <MessageCircle className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+  <span className="font-medium">Reviews</span>
+</Link>
+  </div>
+)}
+
 
             {/* Become a Tutor (only for users) */}
             {user?.role === "user" && !hideTutorButton && (
