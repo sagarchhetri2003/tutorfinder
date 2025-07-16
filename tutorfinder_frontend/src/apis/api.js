@@ -34,6 +34,7 @@ export const getTutorDetailsApi = (tutorId) => api.get(`/api/user/tutor-details/
 export const createContactApi = (data) => api.post("/api/user/contact", data, config);
 export const getTutorByIdApi = (id) => api.get(`/api/user/tutor/${id}`, config);
 export const myContactsApi = () => api.get("/api/user/my-contacts", config);
+export const deleteContactApi = (id) => api.delete(`/api/user/delete-contact/${id}`, config);
 export const myBookingsApi = () => api.get("/api/user/my-bookings", config);
 export const addReviewsApi = (data) => api.post("/api/user/add-review", data, config);
 export const getReviewsApi = (id) => api.get(`/api/user/get-review/${id}`);

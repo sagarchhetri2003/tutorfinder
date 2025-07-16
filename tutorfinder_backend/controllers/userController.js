@@ -463,13 +463,34 @@ exports.createContact = async (req, res) => {
   }
 };
 
+// exports.myContacts = async (req, res) => {
+//   const userId = req.user.id;
+//   try {
+//     const contacts = await Contact.find({ tutor: userId })
+//       .populate("tutor", "name email number location image")
+//       .populate("user", "name email number location image")
+//       .sort({ createdAt: -1 });
+//     res.status(200).json({
+//       success: true,
+//       contacts,
+//     });
+//   } catch (error) {
+//     console.error("Error fetching contacts:", error);
+//     res.status(500).json({
+//       success: false,
+//       message: "Server error",
+//     });
+//   }
+// };
+
 exports.myContacts = async (req, res) => {
   const userId = req.user.id;
   try {
     const contacts = await Contact.find({ tutor: userId })
       .populate("tutor", "name email number location image")
       .populate("user", "name email number location image")
-      .sort({ createdAt: -1 });
+      .select("message subject tutor user createdAt") 
+
     res.status(200).json({
       success: true,
       contacts,
@@ -482,6 +503,20 @@ exports.myContacts = async (req, res) => {
     });
   }
 };
+exports.deleteContactController = async (req, res) => {
+  try {
+    const contact = await Contact.findByIdAndDelete(req.params.id);
+    if (!contact) {
+      return res.status(404).json({ success: false, message: "Contact not found" });
+    }
+    res.status(200).json({ success: true, message: "Contact deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting contact:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+
 
 exports.myBookings = async (req, res) => {
   const userId = req.user.id;

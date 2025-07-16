@@ -16,7 +16,8 @@ const {
   myContacts,
   myBookings,
   addReviews,
-  getReviewFromId
+  getReviewFromId,
+  deleteContactController,
 } = require("../controllers/userController");
 
 // import the multer upload middleware
@@ -60,6 +61,9 @@ router.get("/tutor-details/:tutorId", getTutorDetails);
 router.post("/contact", authGuard, createContact);
 
 router.get("/my-contacts", authGuard, myContacts);
+router.delete("/delete-contact/:id", authGuard, deleteContactController);
+
+
 
 router.get("/my-bookings", authGuard, myBookings);
 
