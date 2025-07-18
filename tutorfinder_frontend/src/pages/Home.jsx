@@ -368,7 +368,6 @@ import { useState, useRef, useEffect } from "react";
 import { Star, ArrowRight, ArrowLeft, Sparkles, Users, BookOpen, Award, TrendingUp, ChevronRight } from "lucide-react";
 import TutorCard from "../components/TutorCard.jsx";
 import TestimonialCard from "../components/TestimonialCard.jsx";
-import CategorySection from "../components/CategorySection.jsx";
 import Hero from "../components/Hero.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import { allTutorsApi, allFavouritesApi, toggleFavouriteApi } from "../apis/api.js";
