@@ -38,9 +38,10 @@ export const deleteContactApi = (id) => api.delete(`/api/user/delete-contact/${i
 export const myBookingsApi = () => api.get("/api/user/my-bookings", config);
 export const addReviewsApi = (data) => api.post("/api/user/add-review", data, config);
 export const getMyReviewsApi = () => api.get("/api/user/my-reviews", config);
-export const getReviewsApi = (id) => api.get(`/api/user/get-review/${id},`);
+export const getReviewsApi = (id) => api.get(`/api/user/get-review/${id}`,config);
 export const getTutorReviewsApi = () => api.get("/api/user/my-reviews", config);
 export const deleteReviewApi = (id) => api.delete(`/api/user/review/${id}`, config);
+export const editReviewApi = (id, data) =>api.put(`/api/user/update-review/${id}`, data, config);
 export const createBookingApi = (data) => api.post("/api/booking/create", data, config);
 export const getAllUsersApi = () => api.get("/api/admin/allUsers", config);
 export const getAllTutorsApi = () => api.get("/api/admin/allTutors", config);

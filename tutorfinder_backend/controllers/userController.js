@@ -7,6 +7,8 @@ const Review = require("../model/reviewModel");
 const transporter = require("../middleware/mailConfig.js");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
+const mongoose = require("mongoose");
+
 exports.registerUser = async (req, res) => {
   const { name, email, number, location, password, role } = req.body;
   const image = req.file ? req.file.path : null;
@@ -577,47 +579,105 @@ exports.addReviews = async (req, res) => {
   }
 };
 
-// Get reviews for a specific tutor by ID (public or user-side)
+
+
+// controllers/userController.js (or wherever you put it)
 exports.getReviewFromId = async (req, res) => {
-  const id = req.params.id;
+  const tutorId = req.params.id;
+  console.log("→ getReviewFromId called for tutor:", tutorId);
 
   try {
-    const reviews = await Review.find({ tutor: id })
-      .sort({ createdAt: -1 })
+    const reviews = await Review
+      .find({ tutor: tutorId })
       .populate("user", "name");
-
-    res.status(200).json({
-      success: true,
-      message: "Reviews",
-      reviews,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
+    console.log(`→ found ${reviews.length} reviews`);
+    return res.status(200).json({ success: true, reviews });
+  } catch (err) {
+    console.error("!! getReviewFromId ERROR:", err);
+    return res
+      .status(500)
+      .json({ success: false, message: err.message });
   }
 };
 
+
+exports.editReview = async (req, res) => {
+  const { review, rating } = req.body;
+  const reviewId = req.params.id;
+
+  try {
+    const existingReview = await Review.findById(reviewId);
+    if (!existingReview) {
+      return res.status(404).json({ success: false, message: "Review not found" });
+    }
+
+    if (existingReview.user.toString() !== req.user.id) {
+      return res.status(403).json({ success: false, message: "Unauthorized" });
+    }
+
+    existingReview.review = review || existingReview.review;
+    existingReview.rating = rating || existingReview.rating;
+
+    await existingReview.save();
+
+    res.status(200).json({ success: true, message: "Review updated successfully" });
+  } catch (err) {
+    console.error("Error updating review:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+
 // Tutor deletes review written about them
+// exports.deleteReview = async (req, res) => {
+//   try {
+//     const review = await Review.findById(req.params.id);
+//     if (!review) {
+//       return res.status(404).json({ success: false, message: "Review not found" });
+//     }
+
+//     // Ensure only the tutor (being reviewed) can delete it
+//     if (review.tutor.toString() !== req.user.id) {  // FIXED
+//       return res.status(403).json({ success: false, message: "Unauthorized" });
+//     }
+
+//     await Review.findByIdAndDelete(req.params.id);
+
+//     res.status(200).json({ success: true, message: "Review deleted" });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ success: false, message: "Error deleting review" });
+//   }
+// };
+
+
 exports.deleteReview = async (req, res) => {
   try {
     const review = await Review.findById(req.params.id);
     if (!review) {
-      return res.status(404).json({ success: false, message: "Review not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Review not found" });
     }
 
-    // Ensure only the tutor (being reviewed) can delete it
-    if (review.tutor.toString() !== req.user.id) {  // FIXED
-      return res.status(403).json({ success: false, message: "Unauthorized" });
+    // allow deletion if you're the author OR the tutor being reviewed
+    const isAuthor = review.user.toString()  === req.user.id;
+    const isTutor  = review.tutor.toString() === req.user.id;
+    if (!isAuthor && !isTutor) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Unauthorized" });
     }
 
     await Review.findByIdAndDelete(req.params.id);
+    return res
+      .status(200)
+      .json({ success: true, message: "Review deleted successfully" });
 
-    res.status(200).json({ success: true, message: "Review deleted" });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, message: "Error deleting review" });
+    console.error("Error deleting review:", err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Error deleting review" });
   }
 };
