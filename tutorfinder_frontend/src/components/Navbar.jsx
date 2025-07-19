@@ -151,9 +151,7 @@ const Navbar = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm"></div>
             </div>
-            <span className="font-bold text-xl text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
-              TutorFinder
-            </span>
+    
           </Link>
 
           {/* Search Bar - Hidden on blurred pages */}
