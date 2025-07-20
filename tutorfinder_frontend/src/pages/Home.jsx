@@ -129,9 +129,9 @@ const Home = () => {
   ];
 
   const stats = [
-    { icon: Users, label: "Active Students", value: "50,000+" },
-    { icon: BookOpen, label: "Subjects Available", value: "200+" },
-    { icon: Award, label: "Expert Tutors", value: "5,000+" },
+    { icon: Users, label: "Active Students", value: "50,+" },
+    { icon: BookOpen, label: "Subjects Available", value: "20+" },
+    { icon: Award, label: "Expert Tutors", value: "50+" },
     { icon: TrendingUp, label: "Success Rate", value: "95%" },
   ];
 
