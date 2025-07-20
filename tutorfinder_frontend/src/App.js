@@ -112,6 +112,9 @@ function AppContent() {
           <Route path="/tutorlandingpage" element={<TutorLandingPage />} />
           <Route element={<AdminRoutes />}>
             <Route path="/admin/dashboard" element={<AdminPanel />} />
+            {/* <Route path="/admin/users" element={<AdminPanel />} />
+            <Route path="/admin/tutors" element={<AdminPanel />} />
+            <Route path="/admin/reviews" element={<AdminPanel />} /> */}
           </Route>
 
           {/* Add more routes as needed */}
